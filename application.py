@@ -8,13 +8,13 @@ from flask_migrate import Migrate
 app = Flask(__name__) # on instancie l'application
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db' #connection à la bdd
 
-
-
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 from model.stock import stock
 from model.article import Article
+from model.order import Order
+from model.order_entry import OrderEntry
 
 @app.route('/hello') # routing url - la route hello dans la fonction hello_world
 def hello_world():
