@@ -2,10 +2,15 @@ from flask import Flask
 from flask import redirect, url_for
 from flask import render_template #Jinja2
 from flask import request
-from stock import stock
-from article import Article
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__) # on instancie l'application
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db' #connection à la bdd
+db = SQLAlchemy(app)
+
+from model.stock import stock
+from model.article import Article
 
 @app.route('/hello') # routing url - la route hello dans la fonction hello_world
 def hello_world():
@@ -21,13 +26,23 @@ def show_username(username, other):
 def add_article():
     if request.method == 'GET':
         #show create form
+        return render_template('add_article.html')
         print('GET')
     else:
         #create article from post body
+        articleName = request.form['name']
+        articleDescription = request.form['description']
+        articlePrice = request.form['price']
+
+# on rajoute les clés:noms de colonnes au "=valeur"
+        article = Article(name=articleName, description=articleDescription, price=int(articlePrice))
+        stock.addArticleQuantity(article, 1)
+
         return redirect(url_for('index'))
 
 @app.route('/') # on donne une nouvelle route qui sera notre page d'accueil
 def index():
-    return render_template('index.html', entries=stock.entries)
+    return render_template('index.html', entries=stock.entries()) # entries => entries() appelle à la fonction
+
 
 

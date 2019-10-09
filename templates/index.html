@@ -9,6 +9,13 @@
 <body>
     <div class="container">
         <h1>Stock :</h1>
+        <a href></a>
+        <div>total :
+            {% for entry in entries %}
+            {{ entry.article.price * entry.quantity }}
+            {% endfor %}
+        </div>
+        <a href="/add_article">Ajouter un article</a>
         <table class="table">
             <thead>
                 <td>
@@ -25,6 +32,9 @@
                 </td>
                 <td>
                     quantité
+                </td>
+                 <td>
+                    total
                 </td>
             </thead>
             {% for entry in entries %}
@@ -43,6 +53,9 @@
                     </td>
                     <td>
                         {{ entry.quantity }}
+                    </td>
+                    <td>
+                        {{ entry.article.price * entry.quantity }}
                     </td>
                 </tr>
             {% endfor %}
