@@ -18,3 +18,7 @@ class StockEntry(db.Model):
 
     def toString(self):
         return '{} x {}'.format(self.article.toString(), self.article.quantity)
+
+    def update(self, values):
+        self.quantity = values['quantity']
+        db.session.commit()

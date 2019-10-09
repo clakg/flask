@@ -32,10 +32,16 @@ class Article(db.Model): # heritage de notre objet article du model de base de s
         name = input("nom: ")
         description = input("Description: ")
         price = int(input("Prix: "))
-
         # sqla va nous creer un contructeur automatique et il faudra juste renseigner les champs ligne 33
         article = Article(name=name, description=description, price=price)
         return article
+
+    def update(self, values):
+        self.name = values['name']
+        self.description = values['description']
+        self.price = values['price']
+        db.session.commit()
+
 # on enleve les articles creer en dur
 
 #article = Article('Macbook', 'Ordinateur Apple', 1500)

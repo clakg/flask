@@ -50,10 +50,6 @@ class Stock:
         db.session.delete(article)
         db.session.commit()
 
-
-
-
-
 stock = Stock()
 #stock.addArticleQuantity(article, 1)
 #stock.addArticleQuantity(article2, 10)
