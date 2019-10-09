@@ -14,7 +14,7 @@ class StockEntry(db.Model):
     #    self.quantity = quantity
 
     def price(self):
-        return self.article.price * self.quantity
+        return self.article.price * self.article.quantity
 
     def toString(self):
-        return '{} x {}'.format(self.article.toString(), self.quantity)
+        return '{} x {}'.format(self.article.toString(), self.article.quantity)

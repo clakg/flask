@@ -11,9 +11,7 @@
         <h1>Stock :</h1>
         <a href></a>
         <div>total :
-            {% for entry in entries %}
-            {{ entry.article.price * entry.quantity }}
-            {% endfor %}
+
         </div>
         <a href="/add_article">Ajouter un article</a>
         <table class="table">
@@ -36,6 +34,12 @@
                  <td>
                     total
                 </td>
+                <td>
+                    ✍︎ modifier
+                </td>
+                <td>
+                    ✖︎ supprimer
+                </td>
             </thead>
             {% for entry in entries %}
                 <tr>
@@ -56,6 +60,12 @@
                     </td>
                     <td>
                         {{ entry.article.price * entry.quantity }}
+                    </td>
+                    <td>
+                        <a href="/remove_article/{{entry.article.id}}">Modifier</a>
+                    </td>
+                    <td>
+                        <a href="/delete_article/{{entry.article.id}}">Supprimer</a>
                     </td>
                 </tr>
             {% endfor %}

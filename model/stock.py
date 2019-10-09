@@ -24,7 +24,7 @@ class Stock:
     #    self.entries.append(entry)
 
     def addStockEntry(self, entry):
-        self.entries.append(entry)
+        #self.entries.append(entry)
         db.session.add(entry)
         db.session.commit()
 
@@ -41,6 +41,16 @@ class Stock:
         article = Article.createArticle() # recupere mon article - method de class avec A pour faire ref à la classe
         quantity = int(input("quantité de l'article: "))
         self.addArticleQuantity(article, quantity)
+
+
+    def deleteArticleById(self, article_id):
+        entry = StockEntry.query.filter_by(article_id=article_id).first()
+        article = Article.query.filter_by(id=article_id).first()
+        db.session.delete(entry)
+        db.session.delete(article)
+        db.session.commit()
+
+
 
 
 

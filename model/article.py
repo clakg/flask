@@ -8,6 +8,8 @@ class Article(db.Model): # heritage de notre objet article du model de base de s
     name = db.Column(db.String(80), nullable=False) #cree une colonne pour name
     description = db.Column(db.String(120), nullable=False) #cree une colonne pour description
     price = db.Column(db.Integer, nullable=False) #cree une colonne pour price
+#    entry = StockEntry.query.filter_by(article_id=).first()
+#    article = Article.query.filter_by(id=).first()
 
     # sqla va nous creer un contructeur automatique et il faudra juste renseigner les champs ligne 33
 
@@ -18,7 +20,6 @@ class Article(db.Model): # heritage de notre objet article du model de base de s
         #self.name = name
         #self.description = description
         #self.price = price
-
 
     def print(self):
         print('[{}] Article {} - {}€ : \n{}'.format(self.id, self.name, self.price, self.description))
@@ -31,6 +32,7 @@ class Article(db.Model): # heritage de notre objet article du model de base de s
         name = input("nom: ")
         description = input("Description: ")
         price = int(input("Prix: "))
+
         # sqla va nous creer un contructeur automatique et il faudra juste renseigner les champs ligne 33
         article = Article(name=name, description=description, price=price)
         return article

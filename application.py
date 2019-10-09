@@ -27,22 +27,34 @@ def add_article():
     if request.method == 'GET':
         #show create form
         return render_template('add_article.html')
-        print('GET')
+        #print('GET')
     else:
         #create article from post body
         articleName = request.form['name']
         articleDescription = request.form['description']
         articlePrice = request.form['price']
+        articleQuantity = request.form['quantity']
 
 # on rajoute les clés:noms de colonnes au "=valeur"
         article = Article(name=articleName, description=articleDescription, price=int(articlePrice))
-        stock.addArticleQuantity(article, 1)
+        stock.addArticleQuantity(article, articleQuantity)
 
         return redirect(url_for('index'))
+
+@app.route('/delete_article/<int:article_id>')
+def deleteArticle(article_id):
+    stock.deleteArticleById(article_id)
+    return redirect(url_for('index'))
+
+@app.route('/refactor_article/<int:article_id>')
+def refactorArticle(article_id):
+    stock.refactorArticleById(article_id)
+    return redirect(url_for('index'))
 
 @app.route('/') # on donne une nouvelle route qui sera notre page d'accueil
 def index():
     return render_template('index.html', entries=stock.entries()) # entries => entries() appelle à la fonction
+
 
 
 
