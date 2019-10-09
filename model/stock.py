@@ -26,6 +26,8 @@ class Stock:
         quantity = int(input("quantité de l'article: "))
         self.addArticleQuantity(article, quantity)
 
+
+
 stock = Stock()
 stock.addArticleQuantity(article, 1)
 stock.addArticleQuantity(article2, 10)
