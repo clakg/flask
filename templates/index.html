@@ -70,6 +70,64 @@
                 </tr>
             {% endfor %}
         </table>
+        <h1>Commandes : </h1>
+        <div>
+            <form method="post" action="/create_order">
+              <div class="form-group row">
+                <label class="col-3 col-form-label" for="name">Nom de la commande</label>
+                <div class="col-6">
+                  <input id="name" name="name" placeholder="Nom de la commande" type="text" class="form-control" required="required">
+                </div>
+                  <div class="col-3">
+                      <button name="submit" type="submit" class="btn btn-primary">Créer</button>
+                  </div>
+              </div>
+            </form>
+        </div>
+        <table class="table">
+            <thead>
+                <td>
+                    ID
+                </td>
+                <td>
+                    nom
+                </td>
+                <td>
+                    status
+                </td>
+                <td>
+                    date
+                </td>
+                <td>
+                    Suppr.
+                </td>
+                <td>
+                    Modifier
+                </td>
+            </thead>
+            {% for order in orders %}
+                <tr>
+                    <td>
+                        {{ order.id }}
+                    </td>
+                    <td>
+                        {{ order.name }}
+                    </td>
+                    <td>
+                        {{ order.status }}
+                    </td>
+                    <td>
+                        {{ order.created_at }}
+                    </td>
+                    <td>
+                        <a href="/delete_order/{{ order.id }}">Supprimer</a>
+                    </td>
+                    <td>
+                        <a href="/edit_order/{{ order.id }}">Modifier</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
     </div>
 </body>
 </html>

@@ -11,8 +11,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db' #connection à la bd
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-from model.stock import stock
 from model.article import Article
+from model.stock import stock
 from model.stock_entry import StockEntry
 from model.order import Order
 from model.order_entry import OrderEntry
@@ -26,6 +26,14 @@ from model.order_entry import OrderEntry
 #@app.route('/user/<username>/<int:other>') # routing avec une variable dans l'url
 #def show_username(username, other):
 #    return 'Hello, {}, {}'.format(username, other)
+
+@app.route('/create_order', methods=['POST'])
+def create_order():
+    orderName = request.form['name']
+    order = Order(name=orderName, status='ongoing')
+    db.session.add(order)
+    db.session.commit()
+    return redirect(url_for('index'))
 
 @app.route('/add_article', methods=['GET', 'POST'])
 def add_article():
@@ -69,7 +77,8 @@ def refactorArticle(article_id):
 
 @app.route('/') # on donne une nouvelle route qui sera notre page d'accueil
 def index():
-    return render_template('index.html', entries=stock.entries()) # entries => entries() appelle à la fonction
+    orders = Order.query.all()
+    return render_template('index.html', entries=stock.entries(), orders=orders) # entries => entries() appelle à la fonction
 
 
 
