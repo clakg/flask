@@ -13,18 +13,19 @@ migrate = Migrate(app, db)
 
 from model.stock import stock
 from model.article import Article
+from model.stock_entry import StockEntry
 from model.order import Order
 from model.order_entry import OrderEntry
 
-@app.route('/hello') # routing url - la route hello dans la fonction hello_world
-def hello_world():
-    return 'Hello, R1 !'
+#@app.route('/hello') # routing url - la route hello dans la fonction hello_world
+#def hello_world():
+#    return 'Hello, R1 !'
 
 #flask a besoin de savoir avec quel fichier on lance la variable d'environnement
 
-@app.route('/user/<username>/<int:other>') # routing avec une variable dans l'url
-def show_username(username, other):
-    return 'Hello, {}, {}'.format(username, other)
+#@app.route('/user/<username>/<int:other>') # routing avec une variable dans l'url
+#def show_username(username, other):
+#    return 'Hello, {}, {}'.format(username, other)
 
 @app.route('/add_article', methods=['GET', 'POST'])
 def add_article():
@@ -53,14 +54,16 @@ def deleteArticle(article_id):
 @app.route('/refactor_article/<int:article_id>', methods=['GET', 'POST'])
 def refactorArticle(article_id):
     article = Article.query.filter_by(id=article_id).first()
+    entry = StockEntry.query.filter_by(article_id=article_id).first()
 
     if request.method == 'GET':
         # show create form
-        return render_template('refactor_article.html', article=article)
+        return render_template('refactor_article.html', article=article, entry=entry)
         # print('GET')
     else:
         # create article from post body
         article.update(request.form)
+        entry.update(request.form)
 
         return redirect(url_for('index'))
 

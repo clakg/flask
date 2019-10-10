@@ -5,7 +5,7 @@ class OrderEntry(db.Model):
     article_id = db.Column(db.Integer, db.ForeignKey('article.id', ondelete='CASCADE'), primary_key=True)
     article = db.relationship('Article')
 
-    order_id = db.Column(db.Integer, db.ForeignKey('article.id', ondelete='CASCADE'), primary_key=True)
+    order_id = db.Column(db.Integer, db.ForeignKey('order.id', ondelete='CASCADE'), primary_key=True)
     order = db.relationship('Order', backref=db.backref('entries'))
 
 #    Si un order_entry est supprimer il sera suprimer
